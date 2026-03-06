@@ -1,0 +1,21 @@
+# Build / install
+dist/
+build/
+*.egg-info/
+*.egg
+
+# PyPI credentials (never commit)
+.pypirc
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.venv/
+.venv-deploy/
+venv/
+.env
