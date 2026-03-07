@@ -1,0 +1,21 @@
+# Example: run LLM deprecation check in CI.
+# Uses the action from this repo: techdevsynergy/llm-model-deprecation@v1
+
+name: LLM deprecation check
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check LLM deprecations
+        uses: techdevsynergy/llm-model-deprecation@v1
+        with:
+          fail-on-deprecated: "true"

@@ -1,0 +1,48 @@
+# GitHub Action: Check LLM model deprecations in your repo
+# Use: techdevsynergy/llm-model-deprecation@v1
+
+name: "LLM Model Deprecation Check"
+description: "Scan the repository for deprecated or retired LLM model references (OpenAI, Anthropic, etc.)"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+
+inputs:
+  path:
+    description: "Path to project root to scan (relative to repo root)"
+    required: false
+    default: "."
+  fail-on-deprecated:
+    description: "Set to true to fail the job when deprecated/retired models are found (CI)"
+    required: false
+    default: "false"
+  version:
+    description: "Pin llm-model-deprecation version (e.g. 1.0.0). Omit for latest."
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install llm-model-deprecation
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.version }}" ]; then
+          pip install llm-model-deprecation==${{ inputs.version }}
+        else
+          pip install llm-model-deprecation
+        fi
+
+    - name: Check LLM deprecations
+      shell: bash
+      run: |
+        if [ "${{ inputs.fail-on-deprecated }}" = "true" ]; then
+          llm-deprecation scan "${{ inputs.path }}" --fail-on-deprecated
+        else
+          llm-deprecation scan "${{ inputs.path }}"
+        fi
