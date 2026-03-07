@@ -87,7 +87,7 @@ Run the same check in GitHub Actions:
 
 ```yaml
 - name: Check LLM deprecations
-  uses: techdevsynergy/llm-model-deprecation@v1
+  uses: techdevsynergy/llm-model-deprecation@v1.1.0
   with:
     fail-on-deprecated: true
 ```
