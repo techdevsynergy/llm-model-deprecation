@@ -16,6 +16,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check LLM deprecations
-        uses: techdevsynergy/llm-model-deprecation@v1.2.0
+        uses: techdevsynergy/llm-model-deprecation@v1.2.1
         with:
           fail-on-deprecated: "true"

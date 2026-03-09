@@ -143,5 +143,10 @@ def format_scan_output(
             continue
         seen.add(key)
         status_label = "deprecated soon" if info.status == DeprecationStatus.DEPRECATED else "retired"
-        lines.append(f"⚠ {info.provider}:{info.model_id} → {status_label}")
+        date_suffix = ""
+        if info.sunset_date:
+            date_suffix = f" (retirement date: {info.sunset_date})"
+        elif info.deprecated_date and info.status == DeprecationStatus.DEPRECATED:
+            date_suffix = f" (deprecation date: {info.deprecated_date})"
+        lines.append(f"⚠ {info.provider}:{info.model_id} → {status_label}{date_suffix}")
     return "\n".join(lines) if lines else ""

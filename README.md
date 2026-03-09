@@ -88,7 +88,7 @@ Run the same check in GitHub Actions:
 ```yaml
 - name: Check LLM deprecations
   id: llm-check
-  uses: techdevsynergy/llm-model-deprecation@v1.2.0
+  uses: techdevsynergy/llm-model-deprecation@v1.2.1
   with:
     fail-on-deprecated: true
 ```
@@ -100,7 +100,7 @@ Run the same check in GitHub Actions:
 ```yaml
 - name: Check LLM deprecations
   id: llm-check
-  uses: techdevsynergy/llm-model-deprecation@v1.2.0
+  uses: techdevsynergy/llm-model-deprecation@v1.2.1
   with:
     fail-on-deprecated: false
 
