@@ -87,12 +87,31 @@ Run the same check in GitHub Actions:
 
 ```yaml
 - name: Check LLM deprecations
-  uses: techdevsynergy/llm-model-deprecation@v1.1.0
+  id: llm-check
+  uses: techdevsynergy/llm-model-deprecation@v1.2.0
   with:
     fail-on-deprecated: true
 ```
 
-Options: `path` (project root to scan), `fail-on-deprecated`, `version` (pin package version).
+**Inputs:** `path` (project root to scan, default `"."`), `fail-on-deprecated` (default `false`), `version` (pin package version).
+
+**Outputs:** `report` — the scan output (findings text). Use it for Slack, job summary, or logs:
+
+```yaml
+- name: Check LLM deprecations
+  id: llm-check
+  uses: techdevsynergy/llm-model-deprecation@v1.2.0
+  with:
+    fail-on-deprecated: false
+
+- name: Send to Slack
+  if: steps.llm-check.outputs.report != ''
+  run: |
+    # For production, escape the report for JSON (e.g. with jq --arg) or use slackapi/slack-github-action
+    curl -X POST -H 'Content-type: application/json' \
+      --data "{\"text\":\"${{ steps.llm-check.outputs.report }}\"}" \
+      "${{ secrets.SLACK_WEBHOOK_URL }}"
+```
 
 ## Data source
 

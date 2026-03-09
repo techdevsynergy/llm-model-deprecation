@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-model-deprecation"
-version = "1.1.0"
+version = "1.2.0"
 description = "Track and check deprecation status of LLM provider models (OpenAI, Anthropic, etc.)"
 readme = "README.md"
 requires-python = ">=3.10"

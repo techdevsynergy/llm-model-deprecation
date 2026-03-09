@@ -21,6 +21,11 @@ inputs:
     required: false
     default: ""
 
+outputs:
+  report:
+    description: "Scan output (findings text). Use for Slack, job summary, or logs."
+    value: ${{ steps.deprecation.outputs.report }}
+
 runs:
   using: "composite"
   steps:
@@ -39,10 +44,17 @@ runs:
         fi
 
     - name: Check LLM deprecations
+      id: deprecation
       shell: bash
       run: |
+        set -o pipefail
         if [ "${{ inputs.fail-on-deprecated }}" = "true" ]; then
-          llm-deprecation scan "${{ inputs.path }}" --fail-on-deprecated
+          llm-deprecation scan "${{ inputs.path }}" --fail-on-deprecated 2>&1 | tee report.txt
         else
-          llm-deprecation scan "${{ inputs.path }}"
+          llm-deprecation scan "${{ inputs.path }}" 2>&1 | tee report.txt
         fi
+        scan_exit=${PIPESTATUS[0]}
+        echo "report<<EOF" >> $GITHUB_OUTPUT
+        cat report.txt >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        exit $scan_exit
