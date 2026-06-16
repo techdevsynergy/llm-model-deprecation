@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- OpenAI GPT-5 dated snapshots (`gpt-5-2025-08-07`, `gpt-5-mini-2025-08-07`, `gpt-5-nano-2025-08-07`, `gpt-5-pro-2025-10-06`) with Dec 10, 2026 shutdown.
+- Gemini preview models discontinuing Jul 9, 2026.
+- Gemini Enterprise restrictions (Jun 15, 2026) for `gemini-2.5-flash`, `gemini-2.5-flash-lite`, and `gemini-3-flash-preview`.
+- Vertex AI Gemini 2.5 retirement timeline (no earlier than Oct 16, 2026) for `gemini-2.5-pro`, `gemini-2.5-flash`, and `gemini-2.5-flash-lite`.
+
 ## [1.2.1] - 2025-03-09
 
 ### Added
